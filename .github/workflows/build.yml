@@ -1,4 +1,4 @@
-name: 'ci-node'
+name: 'build'
 
 on:
   pull_request:
@@ -19,13 +19,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
       
       - name: Yarn Install
-        run: yarn install
+        run: yarn
 
       - name: Running Tests
         run: yarn test
 
       - name: Running Coverage
-        run: yarn test:cov
+        run: yarn jest --coverage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
