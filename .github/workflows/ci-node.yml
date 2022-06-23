@@ -1,0 +1,37 @@
+name: 'ci-node'
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  ci-nodejs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Yarn Install
+        run: yarn install
+
+      - name: Running Tests
+        run: yarn test
+
+      - name: Running Coverage
+        run: yarn test:cov
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      
+
+      
