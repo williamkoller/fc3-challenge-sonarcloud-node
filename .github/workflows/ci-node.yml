@@ -19,13 +19,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
       
       - name: Yarn Install
-        run: yarn install
+        run: yarn
 
       - name: Running Tests
         run: yarn test
 
       - name: Running Coverage
-        run: yarn test:cov
+        run: yarn jest --covarage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
